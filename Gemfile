@@ -27,11 +27,10 @@ gem 'puma', '~> 6.1'
 gem 'require_all', '~> 3.0'
 
 group :development do
-    gem 'rerun', '~> 0.14.0'
-end
+    gem "pry", "~> 0.14.2"
+    gem "rerun", "~> 0.14.0"
+  end
 
-group :test do
-    gem 'rack-test', '~> 2.0', '>= 2.0.2'
-    gem 'rspec', '~> 3.12'
-end
+#gem "rack-contrib", "~> 2.3"
+gem 'json'
 
