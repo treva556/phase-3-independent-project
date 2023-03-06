@@ -84,7 +84,7 @@ task55 = Task.create(name: "Create Sales Client Satisfaction Survey", due_date: 
 
 trevor.save
 mark.save
-mark njogu.save
+njogu.save
 abed.save
 julia.save
 ruby.save
