@@ -1,7 +1,7 @@
 class Employee < ActiveRecord::Base
     belongs_to :manager
     has_many :tasks
-    has_secure_password
+    #has_secure_password
 
     def slug
         self.name.gsub(" ", "-").downcase

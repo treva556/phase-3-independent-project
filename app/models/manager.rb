@@ -1,6 +1,6 @@
 class Manager < ActiveRecord::Base
     has_many :employees
-    has_secure_password
+    #has_secure_password
 
     def slug
         self.name.gsub(" ", "-").downcase

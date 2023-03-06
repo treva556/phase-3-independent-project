@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
         set :views, 'app/views'
         # set :database, "sqlite3:task-manager.sqlite3"
         enable :sessions
-        set :session_secret, "password_security"
+        set :session_secret, "2afcb30bb00ab8fd9a264407c8a570ff4cd4c1163a94082c1d94076bc3e0bc52"
         use Rack::Flash
     end
 
