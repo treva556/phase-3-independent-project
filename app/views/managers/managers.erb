@@ -1,0 +1,25 @@
+<!-- This page shows a list of all managers with links to each manager's info page. -->
+
+        <div>
+         <% if flash.has?(:message) %>
+        <%= flash[:message] %>
+        <% end %>
+        
+        <h1>Managers</h1>
+        <br>
+        <ul id="list">
+        <% @managers.each do |manager| %>
+            <li><a href="/managers/<%= manager.slug %>"><%= manager.name %></a></li><br>
+        <% end %>
+        </ul>
+        </div>
+
+        <footer>
+            <% if employee_logged_in? %>
+                <a href="/employees/<%= current_employee.slug %>">Back to My Employee Page</a>
+            <% elsif manager_logged_in? %>
+                <a href="/managers/<%= current_manager.slug %>">Back to My Manager Page</a>
+            <% end %>
+            <a href="/employees">Employees List</a>
+            <a href="/logout">Log Out</a>
+        </footer>

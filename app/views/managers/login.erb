@@ -1,0 +1,26 @@
+<!-- This page allows a manager to log in. -->
+
+        <div>
+        <% if flash.has?(:message) %>
+        <%= flash[:message] %>
+        <% end %>
+        
+        <h1>Manager Login</h1>
+        <br>
+        <form method="POST" action="/managers/login" id="form">
+            <label>Email: </label>
+            <input type="email" name="manager[email]" placeholder="Enter Email Address">
+            <br>
+            <label>Password: </label>
+            <input type="password" name="manager[password]" placeholder="Enter Password">
+            <br>
+            <input type="submit" value="Log In">
+        </form>
+        </div>
+
+        <footer>
+        <a href="/employees/login">Employee Login</a>
+        <a href="/employees/signup">Create New Employee Account</a>
+        <a href="/managers/signup">Create New Manager Account</a>
+        </footer>
+    
