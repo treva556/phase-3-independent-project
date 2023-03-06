@@ -1,13 +1,14 @@
-require 'rack/cors'
-require_relative "./config/environment.rb"
+require 'sinatra'
+require './config/environment'
+# require_relative './app/controllers'
 
-use Rack::Cors do
-
-    allow do
-        origins '*'
-        resource '/*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options]  
-    end
+if ActiveRecord::Base.connection.migration_context.needs_migration?
+  raise 'Migrations are pending. Run `rake db:migrate` to resolve the issue.'
 end
 
+use Rack::MethodOverride
 
-run Application.new
+run ApplicationController
+use EmployeeController
+use ManagerController
+use TaskController
