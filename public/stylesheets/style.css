@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(159, 208, 22);
+    font-family: 'Montserrat', sans-serif;
+}
+
+div {
+    background-color: darkgrey;
+    border: 1px solid black;
+    border-radius: 8px;
+    text-align: center;
+}
+
+div form {
+    display: inline-block;
+    text-align: center;
+}
+
+a:link {
+    color: midnightblue;
+}
+
+a:visited {
+    color: rebeccapurple;
+}
+
+ul#list {
+    list-style-type: none;
+    display: contents;
+    text-align: center;
+    list-style-position: inside;
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
+
+footer a {
+    margin-right: 15px;
+}

@@ -10,6 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2023_03_06_030056) do
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "department"
+    t.string "title"
+    t.string "email"
+    t.string "password_digest"
+    t.integer "manager_id"
+  end
+
+  create_table "managers", force: :cascade do |t|
+    t.string "name"
+    t.string "department"
+    t.string "title"
+    t.string "email"
+    t.string "password_digest"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "due_date"
+    t.string "priority"
+    t.integer "employee_id"
+  end
 
 end
