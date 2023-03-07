@@ -1,14 +1,17 @@
-require 'sinatra'
-require './config/environment'
-# require_relative './app/controllers'
+require_relative "./config/environment"
 
-if ActiveRecord::Base.connection.migration_context.needs_migration?
-  raise 'Migrations are pending. Run `rake db:migrate` to resolve the issue.'
+# Allow CORS (Cross-Origin Resource Sharing) requests
+use Rack::Cors do
+  allow do
+    origins '*'
+    resource '*', headers: :any, methods: [:get, :post, :delete, :put, :patch, :options, :head]
+  end
 end
 
-use Rack::MethodOverride
+# Parse JSON from the request body into the params hash
+use Rack::JSONBodyParser
 
+# Our application
+use TasksController
+use UsersController
 run ApplicationController
-use EmployeeController
-use ManagerController
-use TaskController
