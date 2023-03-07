@@ -1,52 +1,82 @@
-require './config/environment'
-require 'rack-flash'
-
 class ApplicationController < Sinatra::Base
-
+    set :default_content_type, "application/json"
+  
     configure do
-        set :public_folder, 'public'
-        set :views, 'app/views'
-        # set :database, "sqlite3:task-manager.sqlite3"
-        enable :sessions
-        set :session_secret, "2afcb30bb00ab8fd9a264407c8a570ff4cd4c1163a94082c1d94076bc3e0bc52"
-        use Rack::Flash
+      enable :cross_origin
     end
-
-    get '/' do
-        if employee_logged_in?
-            redirect '/employees'
-        elsif manager_logged_in?
-             redirect '/managers'
-        else
-             erb :'index'
-        end
+  
+    before do
+      response.headers['Access-Control-Allow-Origin'] = '*'
     end
-
-    get '/logout' do
-        if employee_logged_in? || manager_logged_in?
-            session.destroy
-        end
-        redirect '/'
+  
+    options "*" do
+      response.headers["Access-Control-Allow-Methods"] = "GET, PATCH, PUT, POST, DELETE"
+      response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+      response.headers["Access-Control-Allow-Origin"] = "*"
+      200
     end
-
-    helpers do
-
-        def employee_logged_in?
-            !!current_employee
-        end
-
-        def current_employee
-            @current_employee ||= Employee.find_by(id: session[:employee_id]) if session[:employee_id]
-        end
-
-        def manager_logged_in?
-            !!current_manager
-        end
-
-        def current_manager
-            @current_manager ||= Manager.find_by(id: session[:manager_id]) if session[:manager_id]
-        end
-
+  
+  
+    get '/hello' do
+      "hello my brother"
     end
-
-end
+  
+    # user sign in
+    patch "/login" do
+      user = User.find_by(name: params[:name], password: params[:password])
+      if !!user
+      { isRegistered: "#{!!user}", userId: user.id }.to_json
+      else
+        { isRegistered: "#{!!user}"}.to_json
+      end
+    end
+  
+    # user sign up
+    post "/signup" do
+      is_signed_up = User.find_by(email: params[:email])
+      if is_signed_up
+        { isAlreadyRegistered: "#{!!is_signed_up}" }.to_json
+      else
+        user = User.create(name: params[:name], email: params[:email], password: params[:password])
+        user.to_json
+      end
+    end
+  
+    # user create task
+    post "/tasks/create" do
+      task = Task.create(
+        name: params[:name],
+        description: params[:description],
+        due: params[:due],
+        status: params[:status],
+        user_id: params[:user_id]
+      )
+      task.to_json
+    end
+  
+    # user updates task
+    patch "/tasks/update/:id" do
+      task = Task.find(params[:id])
+      task.update(status: params[:status])
+      task.to_json
+    end
+  
+    # user gets individual task
+    get "/tasks/:id" do
+      task = Task.find(params[:id])
+      task.to_json
+    end
+  
+    # user lists all their own tasks
+    patch "/tasks" do
+      task = Task.where(user_id: params[:user_id])
+      task.to_json
+    end
+  
+    # user delete specific tasks
+    delete "/tasks/:id" do
+      task = Task.find(params[:id])
+      task.destroy
+      task.to_json
+    end
+  end

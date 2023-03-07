@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  belongs_to :employee
+  belongs_to :user
 
   # def employee_slug
   #     self.employee.name.gsub(" ", "-").downcase
