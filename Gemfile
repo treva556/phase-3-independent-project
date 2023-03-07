@@ -35,7 +35,7 @@ gem "redis", "~> 5"
 
 gem "sidekiq", "~> 7"
 
-gem "puma", "~> 6"
+#gem "puma", "~> 6"
 
 # These gems will only be used when we are running the application locally
 group :development do
