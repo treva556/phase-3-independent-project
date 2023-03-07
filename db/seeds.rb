@@ -1,4 +1,4 @@
-puts "🌱 Seeding spices..."
+puts "🌱 Seeding"
 
 # Seed your database here
 Task.create(title:"Go shopping",description: "buy groceries",due_date: Date.today,completion_status:false, user_id:1)
