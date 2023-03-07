@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_07_114813) do
+ActiveRecord::Schema.define(version: 2023_03_07_125224) do
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "due"
-    t.string "status"
+    t.string "title"
+    t.text "description"
+    t.date "due_date"
+    t.boolean "completion_status"
     t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
+    t.string "email", null: false
+    t.string "password_hash", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
