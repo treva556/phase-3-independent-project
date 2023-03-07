@@ -1,17 +1,8 @@
-ENV['SINATRA_ENV'] ||= "development"
+ENV['RACK_ENV'] ||= "development"
 
+# Require in Gems
 require 'bundler/setup'
-Bundler.require(:default, ENV['SINATRA_ENV'])
-require 'sinatra'
-require 'sinatra/activerecord'
+Bundler.require(:default, ENV['RACK_ENV'])
 
-# set :database, 'sqlite3:db/taskmanager.sqlite'
-
-
-ActiveRecord::Base.establish_connection(
-  :adapter => "sqlite3",
-  :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
-)
-
-# require_relative "../app/controllers/application_controller.rb"
-require_all 'app'
+# Require in all files in 'app' directory
+require_all 'app
